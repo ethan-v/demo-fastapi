@@ -1,44 +1,97 @@
-from fastapi import APIRouter, UploadFile, BackgroundTasks
-from os import path
-from PIL import Image
-from pyfolio.configs.app import appConfigs
+from fastapi import APIRouter, HTTPException, UploadFile, BackgroundTasks, Depends, status
+from sqlalchemy.orm import Session
+from pyfolio.schemas.file_schema import FileCreate, FileResponse
+from pyfolio.schemas.base_response_schema import SuccessResponse
+from pyfolio.services.image_service import ImageService
+from pyfolio.services.storage_service import StorageService
+from pyfolio.dependencies import get_db
+from pyfolio.models.file import File
+from pyfolio.repositories.file_repository import FileRepository
 
 router = APIRouter()
 
 
-# Resize images for different devices
-def resize_image(file_path: str):
-    sizes = [{
-        "width": 1280,
-        "height": 720
-    }, {
-        "width": 640,
-        "height": 480
-    }]
+@router.get("/")
+async def read_files(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    files = FileRepository(db).paginate(skip=skip, limit=limit)
+    response_files = files.copy()
+    response_files.items = []
+    for file in files.items:
+        response_files.items.append(
+            FileResponse(
+                id=file.id,
+                name=file.name,
+                url= await StorageService().url(file.path),
+                extension=file.extension,
+                mimetype=file.mimetype,
+                created_at=str(file.created_at),
+                updated_at=str(file.updated_at),
+            )
+        )
+    return SuccessResponse(
+        message='Retrieve file successfully',
+        data=response_files
+    )
 
-    basename = path.basename(file_path)
-    file_name, file_extension = path.splitext(basename)
 
-    for size in sizes:
-        size_defined = size['height'], size['width']
-        file_path_sized = f"{path.dirname(file_path)}/{file_name}_{str(size['height'])}{file_extension}"
-        image = Image.open(file_path, mode="r")
-        image.thumbnail(size_defined)
-        image.save(file_path_sized)
-        print(f"[SUCCESS] Resize images: {file_path_sized}")
+@router.get("/{id}")
+async def read_file(id: str, db: Session = Depends(get_db)):
+    file = FileRepository(db).find(id)
+    if file is None:
+        raise HTTPException(status_code=404, detail="File not found")
+    return SuccessResponse(
+        message='Retrieve file successfully',
+        data=FileResponse(
+            id=file.id,
+            name=file.name,
+            url= await StorageService().url(file.path),
+            extension=file.extension,
+            mimetype=file.mimetype,
+        )
+    )
 
 
-@router.post("/upload/")
-async def create_upload_file(file: UploadFile, background_tasks: BackgroundTasks):
-
+@router.post("/upload/", status_code=status.HTTP_201_CREATED)
+async def create_upload_file(file: UploadFile, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     # Save original file
-    file_path = f'{appConfigs.STATICS_PATH}/{file.filename}'
-    with open(file_path, "wb") as f:
-        content = await file.read()
-        f.write(content)
-        f.close()
+    file_path, file_url, file_name, file_extension, file_mimetype = await StorageService().put(file=file)
 
-    # Resize image
-    background_tasks.add_task(resize_image, file_path=file_path)
+    # Save file object to database
+    file = FileCreate(
+        id=file_name,
+        name=file_name,
+        path=file_path,
+        extension=file_extension,
+        mimetype=file_mimetype,
+    )
+    file = FileRepository(db).create(file)
 
-    return {"filename": file.filename}
+    # Resize image size
+    if 'image' in file_mimetype:
+        background_tasks.add_task(ImageService().resize_image, file_path=file_path)
+
+    return SuccessResponse (
+        message="Upload file successfully",
+        data=FileResponse(
+            id=file.id,
+            name=file.name,
+            url=file_url,
+            extension=file.extension,
+            mimetype=file.mimetype,
+        )
+    )
+
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_file(id: str, db: Session = Depends(get_db)):
+    file = FileRepository(db).find(id)
+    if file is None:
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    FileRepository(db).delete(file)
+    ImageService.clean_resize_images(file_path=file.path)
+    
+    return SuccessResponse(
+        message='Delete file successfully',
+        data=None
+    )

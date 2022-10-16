@@ -49,7 +49,7 @@ post_detail_structure = {
 }
 
 
-class TestCardModelApi:
+class TestPostApi:
 
     def test_read_post_list(self):
         response = client.get("/v1/posts/")
@@ -85,10 +85,10 @@ class TestCardModelApi:
             "is_active": True
         }
 
-        # Create car model the first times
+        # Create record the first times
         response = client.post("/v1/posts/", json=payload)
 
-        # Create car model the second times
+        # Create record the second times
         response = client.post("/v1/posts/", json=payload)
 
         assert response.status_code == 400
@@ -104,11 +104,11 @@ class TestCardModelApi:
             "is_active": True
         }
 
-        # Create car model the first times
+        # Create record the first times
         response = client.post("/v1/posts/", json=payload)
         created_obj = response.json()['data']
 
-        # Update car model
+        # Update record
         payload['content'] = 'my content'
         response = client.put(f"/v1/posts/{created_obj['id']}", json=payload)
         updated_obj = response.json()['data']
@@ -128,10 +128,10 @@ class TestCardModelApi:
         response = client.post("/v1/posts/", json=payload)
         created_obj = response.json()['data']
 
-        # Delete car model
+        # Delete record
         response = client.delete(f"/v1/posts/{created_obj['id']}")
         assert response.status_code == 200
 
-        # Get car model
+        # Get record
         response = client.get(f"/v1/posts/{created_obj['id']}")
         assert response.status_code == 404
