@@ -96,8 +96,10 @@ class BaseRepository(AbstractRepository):
         # Search by title or dynamic field
         if search_by == 'title' and hasattr(self.model, 'title'):
             query = query.where(self.model.title.like(f'%{search_value}%'))
-        elif hasattr(self.model, search_by):
-            query = query.where(self.model[search_by].like(f'%{search_value}%'))
+        if search_by == 'email' and hasattr(self.model, 'email'):
+            query = query.where(self.model.email.like(f'%{search_value}%'))
+        # elif hasattr(self.model, search_by):
+        #     query = query.where(self.model[search_by].like(f'%{search_value}%'))
 
         # Count total records
         total = query.count()

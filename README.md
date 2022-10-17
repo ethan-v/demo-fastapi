@@ -4,9 +4,10 @@ Opensource Portfolio application for python developers based on Python 3 & FastA
 
 **Features**
 
-- [ ] Categories
-- [ ] Posts
-- [ ] Portfolio
+- [x] CRUD Categories
+- [x] CRUD Posts
+- [x] CRUD Subscriptions
+- [ ] SMTP mail
 - [ ] Download CV/Resume
 
 ## Quickstart
