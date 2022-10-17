@@ -59,29 +59,29 @@ class TestFileApi:
         assert schema(file_list_structure) == data
 
     def test_upload_file(self):
-        payload={}
-        files=[
-            ('file', ('walpaper-1.jpg', open('/home/super/Pictures/Wallpapers/walpaper-1.jpg','rb'), 'image/jpeg'))
+        payload = {}
+        files = [
+            ('file', ('walpaper-1.jpg', open('/home/super/Pictures/Wallpapers/walpaper-1.jpg', 'rb'), 'image/jpeg'))
         ]
         response = client.post("/v1/files/upload/", json=payload, files=files)
         response_data = response.json()
-        
+
         real_file_path = appConfigs.STATICS_PATH + '/' + response_data['data']['url'].replace('/static/', '')
         is_file_exist = path.exists(real_file_path)
-        
+
         clean_uploaded_image(real_file_path)
 
         assert response.status_code == 201
         assert schema(file_detail_structure) == response.json()
-        assert is_file_exist == True
+        assert is_file_exist is True
 
     def test_read_file_detail(self):
         # First, upload a file
         demo_file_path = appConfigs.APP_PATH + '/logo.png'
         demo_file_name = path.basename(demo_file_path)
-        payload={}
-        files=[
-            ('file', (demo_file_name, open(demo_file_path,'rb'), 'image/jpeg'))
+        payload = {}
+        files = [
+            ('file', (demo_file_name, open(demo_file_path, 'rb'), 'image/jpeg'))
         ]
         response = client.post("/v1/files/upload/", json=payload, files=files)
         response_data = response.json()
@@ -96,9 +96,9 @@ class TestFileApi:
         # First, upload a file
         demo_file_path = appConfigs.APP_PATH + '/logo.png'
         demo_file_name = path.basename(demo_file_path)
-        payload={}
-        files=[
-            ('file', (demo_file_name, open(demo_file_path,'rb'), 'image/jpeg'))
+        payload = {}
+        files = [
+            ('file', (demo_file_name, open(demo_file_path, 'rb'), 'image/jpeg'))
         ]
         response = client.post("/v1/files/upload/", json=payload, files=files)
         response_data = response.json()

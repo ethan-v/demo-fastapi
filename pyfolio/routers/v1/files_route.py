@@ -5,7 +5,6 @@ from pyfolio.schemas.base_response_schema import SuccessResponse
 from pyfolio.services.image_service import ImageService
 from pyfolio.services.storage_service import StorageService
 from pyfolio.dependencies import get_db
-from pyfolio.models.file import File
 from pyfolio.repositories.file_repository import FileRepository
 
 router = APIRouter()
@@ -21,7 +20,7 @@ async def read_files(skip: int = 0, limit: int = 10, db: Session = Depends(get_d
             FileResponse(
                 id=file.id,
                 name=file.name,
-                url= await StorageService().url(file.path),
+                url=await StorageService().url(file.path),
                 extension=file.extension,
                 mimetype=file.mimetype,
                 created_at=str(file.created_at),
@@ -44,7 +43,7 @@ async def read_file(id: str, db: Session = Depends(get_db)):
         data=FileResponse(
             id=file.id,
             name=file.name,
-            url= await StorageService().url(file.path),
+            url=await StorageService().url(file.path),
             extension=file.extension,
             mimetype=file.mimetype,
         )
@@ -70,7 +69,7 @@ async def create_upload_file(file: UploadFile, background_tasks: BackgroundTasks
     if 'image' in file_mimetype:
         background_tasks.add_task(ImageService().resize_image, file_path=file_path)
 
-    return SuccessResponse (
+    return SuccessResponse(
         message="Upload file successfully",
         data=FileResponse(
             id=file.id,
@@ -87,10 +86,10 @@ def delete_file(id: str, db: Session = Depends(get_db)):
     file = FileRepository(db).find(id)
     if file is None:
         raise HTTPException(status_code=404, detail="File not found")
-    
+
     FileRepository(db).delete(file)
     ImageService.clean_resize_images(file_path=file.path)
-    
+
     return SuccessResponse(
         message='Delete file successfully',
         data=None

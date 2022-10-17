@@ -3,6 +3,7 @@ from sqlalchemy import Column, String, DateTime
 from sqlalchemy.sql import func
 from .db import DBModel
 
+
 def uniqid():
     return uuid.uuid3(
         uuid.uuid1(),
@@ -20,5 +21,3 @@ class File(DBModel):
     extension = Column(String, default=None)
     created_at = Column(DateTime(timezone=True), default=func.now())
     updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
-
-    

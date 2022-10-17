@@ -1,6 +1,6 @@
 from os import path
 from uuid import uuid4
-from fastapi import UploadFile, BackgroundTasks
+from fastapi import UploadFile
 from pyfolio.configs.app import appConfigs
 
 
