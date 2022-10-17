@@ -1,3 +1,4 @@
+import pytest
 from pytest_schema import schema, Or
 from faker import Faker
 from fastapi.testclient import TestClient
@@ -5,9 +6,7 @@ from pyfolio.tests.helper import exclude_middleware
 from pyfolio.main import app
 
 client = TestClient(exclude_middleware(app, 'TrustedHostMiddleware'))
-
 fake = Faker()
-
 
 post_list_structure = {
     "message": Or(None, str),
@@ -51,6 +50,22 @@ post_detail_structure = {
 
 class TestPostApi:
 
+    CATEGORY_ID: int = 0
+
+    @pytest.fixture(autouse=True)
+    def setup_category_for_post(self):
+        payload = {
+            "title": fake.uuid4(),
+            "slug": fake.uuid4(),
+            "icon": fake.text(100),
+            "image": fake.text(100),
+            "description": fake.text(100),
+            "is_active": True
+        }
+        response = client.post("/v1/categories/", json=payload)
+        response_data = response.json()
+        self.CATEGORY_ID = response_data['data']['id']
+
     def test_read_post_list(self):
         response = client.get("/v1/posts/")
         data = response.json()
@@ -62,9 +77,9 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(),
+            "image": fake.text(100),
             "content": fake.uuid4(),
-            "category_id": fake.random_number(),
+            "category_id": self.CATEGORY_ID,
             "is_active": True
         }
         response = client.post("/v1/posts/", json=payload)
@@ -79,9 +94,9 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(),
-            "content": fake.text(),
-            "category_id": fake.random_number(),
+            "image": fake.text(100),
+            "content": fake.text(100),
+            "category_id": self.CATEGORY_ID,
             "is_active": True
         }
 
@@ -98,9 +113,9 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(),
-            "content": fake.text(),
-            "category_id": fake.random_number(),
+            "image": fake.text(100),
+            "content": fake.text(100),
+            "category_id": self.CATEGORY_ID,
             "is_active": True
         }
 
@@ -120,9 +135,9 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(),
-            "content": fake.text(),
-            "category_id": fake.random_number(),
+            "image": fake.text(100),
+            "content": fake.text(100),
+            "category_id": self.CATEGORY_ID,
             "is_active": True
         }
         response = client.post("/v1/posts/", json=payload)

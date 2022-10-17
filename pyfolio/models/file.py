@@ -14,10 +14,10 @@ def uniqid():
 class File(DBModel):
     __tablename__ = "files"
 
-    id = Column(String, primary_key=True, index=True, default=uniqid)
-    mimetype = Column(String, default=None)
-    path = Column(String, default=None)
-    name = Column(String, default=None)
-    extension = Column(String, default=None)
+    id = Column(String(190), primary_key=True, index=True, default=uniqid)
+    mimetype = Column(String(190), default=None)
+    path = Column(String(190), default=None)
+    name = Column(String(190), default=None)
+    extension = Column(String(190), default=None)
     created_at = Column(DateTime(timezone=True), default=func.now())
     updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())

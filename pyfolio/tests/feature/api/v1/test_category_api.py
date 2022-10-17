@@ -61,9 +61,9 @@ class TestCategoryApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "icon": fake.text(),
-            "image": fake.text(),
-            "description": fake.text(),
+            "icon": fake.text(100),
+            "image": fake.text(100),
+            "description": fake.text(100),
             "is_active": True
         }
         response = client.post("/v1/categories/", json=payload)
@@ -78,9 +78,9 @@ class TestCategoryApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "icon": fake.text(),
-            "image": fake.text(),
-            "description": fake.text(),
+            "icon": fake.text(100),
+            "image": fake.text(100),
+            "description": fake.text(100),
             "is_active": True
         }
 
@@ -97,9 +97,9 @@ class TestCategoryApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "icon": fake.text(),
-            "image": fake.text(),
-            "description": fake.text(),
+            "icon": fake.text(100),
+            "image": fake.text(100),
+            "description": fake.text(100),
             "is_active": True
         }
 
@@ -118,8 +118,8 @@ class TestCategoryApi:
     def test_delete_category(self):
         payload = {
             "title": fake.uuid4(),
-            "icon": fake.text(),
-            "description": fake.text(),
+            "icon": fake.text(100),
+            "description": fake.text(100),
             "is_active": True
         }
         response = client.post("/v1/categories/", json=payload)

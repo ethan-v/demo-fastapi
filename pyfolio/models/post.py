@@ -9,10 +9,10 @@ class Post(DBModel):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, unique=True, index=True)
-    slug = Column(String, unique=True, index=True)
-    image = Column(String, default=None)
-    content = Column(String, default=None)
+    title = Column(String(190), unique=True, index=True)
+    slug = Column(String(190), unique=True, index=True)
+    image = Column(String(190), default=None)
+    content = Column(String(190), default=None)
     is_active = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
     updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())

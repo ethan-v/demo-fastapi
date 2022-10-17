@@ -4,7 +4,15 @@ env:
 install:
 	pip install -r requirements.txt
 
-start: env
+start:
+	uvicorn pyfolio.main:app --reload
+
+start-sqlite:
+	rm .env && cp .env.sqlite .env
+	uvicorn pyfolio.main:app --reload
+
+start-mysql:
+	rm .env && cp .env.mysql .env
 	uvicorn pyfolio.main:app --reload
 
 lint:
