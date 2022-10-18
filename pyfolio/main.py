@@ -5,7 +5,7 @@ from pyfolio.configs.app import appConfigs
 from pyfolio.routers.v1.router_v1 import router_v1
 from pyfolio.routers.v2.router_v2 import router_v2
 from pyfolio.middlewares import ROUTES_MIDDLEWARE
-
+from vinor.builder import init_builder
 
 app = FastAPI(
     title="Pyfolio API",
@@ -28,6 +28,7 @@ app.mount(appConfigs.STATICS_ROUTE, StaticFiles(directory=appConfigs.STATICS_DIR
 @app.on_event("startup")
 async def startup_event():
     init_db()
+    init_builder(embedded_app_name='Pyfolio', embedded_app_configs=appConfigs)
 
 
 @app.on_event("shutdown")
