@@ -1,7 +1,7 @@
 from pytest_schema import schema, Or
 from faker import Faker
 from fastapi.testclient import TestClient
-from vinor.tests.helper import exclude_middleware
+from vinor.builder.tests.helper import exclude_middleware
 from vinor.builder import builder_api
 
 client = TestClient(exclude_middleware(builder_api, 'TrustedHostMiddleware'))
