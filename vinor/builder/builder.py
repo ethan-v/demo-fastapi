@@ -1,17 +1,17 @@
 from vinor.builder.database import init_db
-from vinor.builder.models.builder_schema_model import BuilderSchema
-from vinor.builder.configs.settings import BuilderSetting
+from vinor.builder.schema.schema_table import SchemaTable
+from vinor.builder.configs import BuilderConfig
 
 
 class Builder:
 
-    settings: BuilderSetting
-    schema: BuilderSchema
+    settings: BuilderConfig
+    schema: SchemaTable
     embedded_app_name: str
     embedded_app_configs: dict
 
     def __init__(self, embedded_app_name: str, embedded_app_configs: dict):
-        self.settings = BuilderSetting()
+        self.settings = BuilderConfig()
         self.embedded_app_name = embedded_app_name
         self.embedded_app_configs = embedded_app_configs
 

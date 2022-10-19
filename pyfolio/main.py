@@ -5,7 +5,7 @@ from pyfolio.configs.app import appConfigs
 from pyfolio.routers.v1.router_v1 import router_v1
 from pyfolio.routers.v2.router_v2 import router_v2
 from pyfolio.middlewares import ROUTES_MIDDLEWARE
-from vinor.builder import init_builder
+from vinor.builder import init_builder, builder_api
 
 app = FastAPI(
     title="Pyfolio API",
@@ -23,6 +23,9 @@ app = FastAPI(
     middleware=ROUTES_MIDDLEWARE,
 )
 app.mount(appConfigs.STATICS_ROUTE, StaticFiles(directory=appConfigs.STATICS_DIRECTORY), name="static")
+
+# Integrate Builder API at: http://localhost:8000/builder/docs
+app.mount("/builder", builder_api)
 
 
 @app.on_event("startup")

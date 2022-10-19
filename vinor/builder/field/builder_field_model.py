@@ -14,9 +14,12 @@ class BuilderField(BuilderDBModel):
         - default:
             Eg: null or "" or 0 or false
         - relation_mapping:
-            Eg1: (2 schemas) One Category has many posts: {field_name: "id", relation_schema:"posts", relation_field: "category_id", relation_type: "one_to_many"}
-            Eg2: (2 schemas) Many posts in one category: {field_name: "category_id", relation_schema:"categories", relation_field: "id", relation_type: "many_to_one"}
-            Eg3: (3 schemas) Many posts has many tags: {field_name: "post_id,tag_id", relation_schema:"tags", relation_field: "id", relation_type: "many_to_many"}
+            Eg1: (2 schemas) One Category has many posts:
+                {field_name: "id", relation_schema:"posts", relation_field: "category_id", relation_type: "one_to_many"}
+            Eg2: (2 schemas) Many posts in one category:
+                {field_name: "category_id", relation_schema:"categories", relation_field: "id", relation_type: "many_to_one"}
+            Eg3: (3 schemas) Many posts has many tags:
+                {field_name: "post_id,tag_id", relation_schema:"tags", relation_field: "id", relation_type: "many_to_many"}
         - comment:
             Eg: Audio file url
         - is_required

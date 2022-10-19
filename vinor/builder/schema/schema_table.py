@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from vinor.builder.database import BuilderDBModel
 
 
-class BuilderSchema(BuilderDBModel):
+class SchemaTable(BuilderDBModel):
     """
     Builder schemas table
     """
