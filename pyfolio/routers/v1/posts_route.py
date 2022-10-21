@@ -1,17 +1,19 @@
-from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, status
-from pyfolio.schemas.base_response_schema import SuccessResponse
-from pyfolio.repositories.post_repository import PostRepository
+from sqlalchemy.orm import Session
 from pyfolio.dependencies import get_db
-from pyfolio.schemas.post_schema import PostCreate, PostUpdate, PostResponse
-
+from pyfolio.repositories.post_repository import PostRepository
+from pyfolio.schemas.base_response_schema import SuccessResponse
+from pyfolio.schemas.post_schema import PostCreate, PostUpdate
 
 router = APIRouter()
 
 
 @router.get("")
-def read_posts(skip: int = 0, limit: int = 10, sort: str = 'id', order='desc', search_by: str = '', search_value: str = '', db: Session = Depends(get_db)):
-    posts = PostRepository(db).paginate(skip=skip, limit=limit, sort=sort, order=order)
+def read_posts(skip: int = 0, limit: int = 10, sort: str = 'id', order='desc',
+               search_by: str = '', search_value: str = '',
+               db: Session = Depends(get_db)):
+    posts = PostRepository(db).paginate(skip=skip, limit=limit, sort=sort, order=order, search_by=search_by,
+                                        search_value=search_value)
     return SuccessResponse(
         message='Retrieve posts successfully',
         data=posts

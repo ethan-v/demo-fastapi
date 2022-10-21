@@ -7,7 +7,8 @@ Opensource Portfolio application for python developers based on Python 3 & FastA
 - [x] CRUD Categories
 - [x] CRUD Posts
 - [x] CRUD Subscriptions
-- [ ] SMTP mail
+- [ ] Send SMTP Mail
+  - [ ] Send mail after subscribe, change password, One-time password (OTP), ..etc 
 - [ ] Download CV/Resume
 
 ## Quickstart

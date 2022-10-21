@@ -1,8 +1,9 @@
 import abc
 import inspect
 import math
+
+from sqlalchemy import text
 from sqlalchemy.orm import Session
-from sqlalchemy import desc, asc, text
 
 from pyfolio.models.db import DBModel
 from pyfolio.responses.pagination_response import PaginationResponse

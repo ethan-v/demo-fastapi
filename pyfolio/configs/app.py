@@ -29,6 +29,13 @@ class AppConfigs(BaseSettings):
     DB_DATABASE: str = Field('', env='DB_DATABASE')
     DB_PREFIX: str = Field('', env='DB_PREFIX')
 
+    MAIL_PROVIDER: str = Field('', env='MAIL_PROVIDER')
+    MAIL_HOST: str = Field('', env='MAIL_HOST')
+    MAIL_PORT: str = Field('', env='MAIL_PORT')
+    MAIL_TLS: str = Field(True, env='MAIL_TLS')
+    MAIL_USERNAME: str = Field('', env='MAIL_USERNAME')
+    MAIL_PASSWORD: str = Field('', env='MAIL_PASSWORD')
+
     class Config:
         case_sensitive = True
         env_file = ENV_PATH

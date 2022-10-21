@@ -23,3 +23,15 @@ lint:
 
 test: lint
 	pytest
+
+test-feature: lint
+	pytest pyfolio/tests/feature
+
+test-unit: lint
+	pytest pyfolio/tests/unit
+
+test-mailer: lint
+	pytest pyfolio/tests/unit/apps/mailer pyfolio/tests/unit/services/test_mail_service.py
+
+
+
