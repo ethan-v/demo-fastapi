@@ -9,16 +9,16 @@ from pyfolio.schemas.post_schema import PostCreate, PostUpdate, PostResponse
 router = APIRouter()
 
 
-@router.get("/")
-def read_posts(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    posts = PostRepository(db).paginate(skip=skip, limit=limit)
+@router.get("")
+def read_posts(skip: int = 0, limit: int = 10, sort: str = 'id', order='desc', search_by: str = '', search_value: str = '', db: Session = Depends(get_db)):
+    posts = PostRepository(db).paginate(skip=skip, limit=limit, sort=sort, order=order)
     return SuccessResponse(
         message='Retrieve posts successfully',
         data=posts
     )
 
 
-@router.get("/{id}", response_model=PostResponse)
+@router.get("/{id}")
 def read_post(id: int, db: Session = Depends(get_db)):
     post = PostRepository(db).find(id)
     if post is None:
@@ -29,7 +29,7 @@ def read_post(id: int, db: Session = Depends(get_db)):
     )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
     db_post = PostRepository(db).find_by_title(post.title)
     if db_post:

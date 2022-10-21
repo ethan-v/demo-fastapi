@@ -1,9 +1,8 @@
-
 import abc
 import inspect
 import math
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
+from sqlalchemy import desc, asc, text
 
 from pyfolio.models.db import DBModel
 from pyfolio.responses.pagination_response import PaginationResponse
@@ -21,7 +20,6 @@ class AbstractRepository(abc.ABC):
 
 
 class BaseRepository(AbstractRepository):
-
     model: object = NotImplementedError
     db: Session = NotImplementedError
 
@@ -31,7 +29,7 @@ class BaseRepository(AbstractRepository):
     def to_dict(self, obj):
         if obj is not None:
             return {c.key: getattr(obj, c.key)
-                for c in inspect(obj).mapper.column_attrs}
+                    for c in inspect(obj).mapper.column_attrs}
         else:
             return {}
 
@@ -78,20 +76,18 @@ class BaseRepository(AbstractRepository):
         self.db.delete(db_model)
         self.db.commit()
 
-    def paginate(self, limit: int = 10, skip: int = 0,
-            order_by: str = 'id', order_direct='desc',
-            search_by: str = '', search_value: str = ''):
+    def paginate(self,
+                 limit: int = 10, skip: int = 0,
+                 sort: str = 'id', order='desc',
+                 search_by: str = '', search_value: str = ''):
 
         search_by = search_by.strip()
         search_value = search_value.strip()
         next_page = None
         data = []
 
-        if order_direct == 'desc':
-            order_by = desc(order_by)
-
         # Create query
-        query = self.db.query(self.model).order_by(order_by)
+        query = self.db.query(self.model).order_by(text(sort + " " + order))
 
         # Search by title or dynamic field
         if search_by == 'title' and hasattr(self.model, 'title'):

@@ -9,19 +9,19 @@ from pyfolio.schemas.base_response_schema import SuccessResponse
 router = APIRouter()
 
 
-@router.get("/")
-def read_categorys(
-    skip: int = 0, limit: int = 10, order_by: str = 'id', order_direct='desc', search_by: str = '', search_value: str = '',
+@router.get("")
+def read_categories(
+    skip: int = 0, limit: int = 10, sort: str = 'id', order='desc', search_by: str = '', search_value: str = '',
     db: Session = Depends(get_db)
 ):
-    categorys = CategoryRepository(db).paginate(
+    categories = CategoryRepository(db).paginate(
         skip=skip, limit=limit,
-        order_by=order_by, order_direct=order_direct,
+        sort=sort, order=order,
         search_by=search_by, search_value=search_value
     )
     return SuccessResponse(
         message='Retrieve car brands successfully',
-        data=categorys
+        data=categories
     )
 
 
@@ -36,7 +36,7 @@ def read_category(id: int, db: Session = Depends(get_db)):
     )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_category(category: CategoryCreate, db: Session = Depends(get_db)):
     db_category = CategoryRepository(db).find_by_title(category.title)
     if db_category:

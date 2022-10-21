@@ -11,12 +11,12 @@ router = APIRouter()
 
 @router.get("/")
 def read_subscriptions(
-    skip: int = 0, limit: int = 10, order_by: str = 'id', order_direct='desc', search_by: str = '', search_value: str = '',
+    skip: int = 0, limit: int = 10, sort: str = 'id', order='desc', search_by: str = '', search_value: str = '',
     db: Session = Depends(get_db)
 ):
     subscriptions = SubscriptionRepository(db).paginate(
         skip=skip, limit=limit,
-        order_by=order_by, order_direct=order_direct,
+        sort=sort, order=order,
         search_by=search_by, search_value=search_value
     )
     return SuccessResponse(
