@@ -62,12 +62,12 @@ class TestPostApi:
             "description": fake.text(100),
             "is_active": True
         }
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
         response_data = response.json()
         self.CATEGORY_ID = response_data['data']['id']
 
     def test_read_post_list(self):
-        response = client.get("/v1/posts/")
+        response = client.get("/v1/posts")
         data = response.json()
         print(data)
         assert response.status_code == 200
@@ -82,7 +82,7 @@ class TestPostApi:
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
-        response = client.post("/v1/posts/", json=payload)
+        response = client.post("/v1/posts", json=payload)
         response_data = response.json()
 
         assert response.status_code == 201
@@ -101,10 +101,10 @@ class TestPostApi:
         }
 
         # Create record the first times
-        response = client.post("/v1/posts/", json=payload)
+        response = client.post("/v1/posts", json=payload)
 
         # Create record the second times
-        response = client.post("/v1/posts/", json=payload)
+        response = client.post("/v1/posts", json=payload)
 
         assert response.status_code == 400
         assert response.json() == {"detail": "Title already exists"}
@@ -120,7 +120,7 @@ class TestPostApi:
         }
 
         # Create record the first times
-        response = client.post("/v1/posts/", json=payload)
+        response = client.post("/v1/posts", json=payload)
         created_obj = response.json()['data']
 
         # Update record
@@ -140,7 +140,7 @@ class TestPostApi:
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
-        response = client.post("/v1/posts/", json=payload)
+        response = client.post("/v1/posts", json=payload)
         created_obj = response.json()['data']
 
         # Delete record

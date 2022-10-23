@@ -50,7 +50,7 @@ subscription_detail_structure = {
 class TestsubscriptionApi:
 
     def test_read_subscription_list(self):
-        response = client.get("/v1/subscriptions/")
+        response = client.get("/v1/subscriptions")
         data = response.json()
         assert response.status_code == 200
         assert schema(subscription_list_structure) == data

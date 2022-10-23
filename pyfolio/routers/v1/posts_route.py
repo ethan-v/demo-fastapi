@@ -12,8 +12,14 @@ router = APIRouter()
 def read_posts(skip: int = 0, limit: int = 10, sort: str = 'id', order='desc',
                search_by: str = '', search_value: str = '',
                db: Session = Depends(get_db)):
-    posts = PostRepository(db).paginate(skip=skip, limit=limit, sort=sort, order=order, search_by=search_by,
-                                        search_value=search_value)
+    posts = PostRepository(db).paginate(
+        skip=skip,
+        limit=limit,
+        sort=sort,
+        order=order,
+        search_by=search_by,
+        search_value=search_value
+    )
     return SuccessResponse(
         message='Retrieve posts successfully',
         data=posts

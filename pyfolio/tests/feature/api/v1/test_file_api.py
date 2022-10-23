@@ -52,7 +52,7 @@ file_detail_structure = {
 class TestFileApi:
 
     def test_read_file_list(self):
-        response = client.get("/v1/files/")
+        response = client.get("/v1/files")
         data = response.json()
         print(data)
         assert response.status_code == 200

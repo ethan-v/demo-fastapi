@@ -95,6 +95,8 @@ class BaseRepository(AbstractRepository):
             query = query.where(self.model.title.like(f'%{search_value}%'))
         if search_by == 'email' and hasattr(self.model, 'email'):
             query = query.where(self.model.email.like(f'%{search_value}%'))
+        if search_by == 'name' and hasattr(self.model, 'name'):
+            query = query.where(self.model.name.like(f'%{search_value}%'))
         # elif hasattr(self.model, search_by):
         #     query = query.where(self.model[search_by].like(f'%{search_value}%'))
 
