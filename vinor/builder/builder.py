@@ -1,12 +1,12 @@
 from vinor.builder.database import init_db
-from vinor.builder.schema.schema_table import SchemaTable
+from vinor.builder.schema.builder_schema_table import BuilderSchemaTable
 from vinor.builder.configs import BuilderConfig
 
 
 class Builder:
 
     settings: BuilderConfig
-    schema: SchemaTable
+    schema: BuilderSchemaTable
     embedded_app_name: str
     embedded_app_configs: dict
 

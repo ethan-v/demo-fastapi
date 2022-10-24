@@ -41,7 +41,7 @@ schema_detail_structure = {
 }
 
 
-class TestSchemaApi:
+class TestBuilderSchemaApi:
 
     def test_read_schema_list(self):
         response = client.get("/schemas/")
@@ -61,21 +61,6 @@ class TestSchemaApi:
         assert response_data['data']['is_active'] == payload['is_active']
         assert response_data['data']['name'] == payload['name']
         assert schema(schema_detail_structure) == response.json()
-
-    def test_create_schema_with_duplicated(self):
-        payload = {
-            "name": fake.uuid4(),
-            "is_active": True
-        }
-
-        # Create schema the first times
-        response = client.post("/schemas/", json=payload)
-
-        # Create schema the second times
-        response = client.post("/schemas/", json=payload)
-
-        assert response.status_code == 400
-        assert response.json() == {"detail": "Name already exists"}
 
     def test_update_schema(self):
         payload = {

@@ -1,10 +1,10 @@
 from vinor.builder.base.base_repository import BaseRepository
-from .schema_table import SchemaTable
+from .builder_schema_table import BuilderSchemaTable
 
 
-class SchemaRepository(BaseRepository):
+class BuilderSchemaRepository(BaseRepository):
 
-    table = SchemaTable
+    table = BuilderSchemaTable
 
     def find_by_name(self, name: str):
         return self.db.query(self.table).filter(self.table.name == name).first()
