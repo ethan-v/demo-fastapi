@@ -1,8 +1,7 @@
 from sqlalchemy import desc
 
 from vinor.builder.base.base_repository import BaseRepository
-from .builder_data_table import BuilderDataTable
-from ..database import BuilderDBModel
+from vinor.builder.bdata.builder_data_table import BuilderDataTable
 
 
 class BuilderDataRepository(BaseRepository):
@@ -10,7 +9,10 @@ class BuilderDataRepository(BaseRepository):
     table = BuilderDataTable
 
     def find_by_field_and_table(self, table_name: str, field_name: str):
-        return self.db.query(self.table).filter(self.table.schema_name == table_name, self.table.field_name == field_name).first()
+        return self.db.query(self.table).filter(
+            self.table.schema_name == table_name,
+            self.table.field_name == field_name
+        ).first()
 
     def get_by_table(self, table_name: str):
         return self.db.query(self.table).filter(self.table.schema_name == table_name).all()

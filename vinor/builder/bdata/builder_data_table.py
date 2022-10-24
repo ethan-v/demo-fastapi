@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 
 from vinor.builder.database import BuilderDBModel
-from vinor.builder.utils import uniqid
 
 
 class BuilderDataTable(BuilderDBModel):

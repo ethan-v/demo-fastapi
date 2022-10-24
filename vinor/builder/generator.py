@@ -1,6 +1,5 @@
 from vinor.builder.field.builder_field_models import BuilderFieldBase
 from vinor.builder.schema.builder_schema_models import BuilderSchemaBase
-from vinor.builder.schema.builder_schema_table import BuilderSchemaTable
 
 
 def is_integer_num(n):
@@ -43,7 +42,7 @@ class Generator:
     example_json: dict
 
     def set_example_json_data(self, example_json: dict):
-        self.example_json = example_json;
+        self.example_json = example_json
 
     def generate(self):
         schemas = []
@@ -71,7 +70,7 @@ class Generator:
             schemas.append(BuilderSchemaBase(
                 name=schema_name.lower(),
                 is_active=False,
-                cols=table_fields,
+                fields=table_fields,
             ))
             break
         return schemas

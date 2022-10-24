@@ -1,12 +1,9 @@
 from faker import Faker
 from sqlalchemy.orm import Session
 
-from vinor.builder.base.base_response import PaginationResponse
-from vinor.builder.bdata.builder_data_models import BuilderDataCreate, BuilderDataResponse
+from vinor.builder.bdata.builder_data_models import BuilderDataCreate
 from vinor.builder.bdata.builder_data_repository import BuilderDataRepository
-from vinor.builder.bdata.builder_data_table import BuilderDataTable
 from vinor.builder.field.builder_field_repository import BuilderFieldRepository
-from vinor.builder.schema.builder_schema_repository import BuilderSchemaRepository
 
 faker = Faker()
 
@@ -33,7 +30,7 @@ class BuilderService:
             field_value = value.data
 
             # Check column data type
-            if field_name is not 'id':
+            if field_name != 'id':
                 column = map_columns[field_name]
                 if column.data_type == 'int':
                     field_value = int(field_value)
@@ -65,7 +62,7 @@ class BuilderService:
             field_value = value.data
 
             # Check column data type
-            if field_name is not 'id':
+            if field_name != 'id':
                 column = map_columns[field_name]
                 if column.data_type == 'int':
                     field_value = int(field_value)
@@ -96,6 +93,6 @@ class BuilderService:
                 field_name=field_name,
                 data=value,
             )
-            record = BuilderDataRepository(self.db).create(data=obj)
+            BuilderDataRepository(self.db).create(data=obj)
             response_obj[field_name] = value
         return response_obj
