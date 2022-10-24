@@ -5,7 +5,6 @@ from typing import Any, Optional, List
 class SuccessResponse(BaseModel):
     message: str = ''
     data: Optional[Any] = None
-    debug: Optional[Any] = None
 
 
 class PaginationResponse(BaseModel):

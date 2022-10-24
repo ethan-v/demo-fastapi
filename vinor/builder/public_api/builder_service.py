@@ -17,72 +17,78 @@ class BuilderService:
     def __init__(self, db):
         self.db = db
 
-    def load_resource(self, table_name: str, view: str):
-        table = BuilderSchemaRepository(self.db).find_by_name(name=table_name)
-        columns = BuilderFieldRepository(self.db).find_by_table(table_name=table_name)
+    def load_resource_data_as_list(self, table_name: str):
+        columns = BuilderFieldRepository(self.db).get_by_table(table_name=table_name)
+        column_values = BuilderDataRepository(self.db).get_by_table(table_name=table_name)
+        map_items = {}
+        map_columns = {}
 
-        # Format as: field = value
-        detail_item = {}
-        list_items = []
+        for col in columns:
+            if col.name not in map_columns:
+                map_columns[col.name] = col
 
-        for column in columns:
-            value = "Faked"
+        for value in column_values:
+            id = value.field_id
+            field_name = value.field_name
+            field_value = value.data
 
-            print("column.data_type: " + column.name)
+            # Check column data type
+            if field_name is not 'id':
+                column = map_columns[field_name]
+                if column.data_type == 'int':
+                    field_value = int(field_value)
+                elif column.data_type == 'float':
+                    field_value = float(field_value)
+                elif column.data_type == 'bool':
+                    field_value = bool(field_value)
 
-            # Check datatype
-            if column.data_type == 'int':
-                value = faker.random_number()
-            elif column.data_type == 'str':
-                value = faker.text(20)
+            # Build item object
+            if id not in map_items:
+                map_items[id] = {"id": id}
+            if field_name not in map_items[id]:
+                map_items[id][field_name] = field_value
+        return list(map_items.values())
 
-            # Check specific column name: slug
-            if column.name == 'slug':
-                value = faker.slug()
+    def load_resource_data_as_detail(self, table_name: str, field_id: int):
+        columns = BuilderFieldRepository(self.db).get_by_table(table_name=table_name)
+        column_values = BuilderDataRepository(self.db).get_by_field_id(table_name=table_name, field_id=field_id)
+        single_item = {}
+        map_columns = {}
 
-            # column_data = BuilderDataRepository(self.db).find_by_field_and_table(table_name=table.name, field_name=column.name)
-            # print(f"table_name={table.name}, field_name={column.name}")
-            # print(column_data.id)
+        for col in columns:
+            if col.name not in map_columns:
+                map_columns[col.name] = col
 
-            column_data = BuilderDataRepository(self.db).find_by_field_and_table(table_name='course', field_name=column.name)
-            print(f"================ column_data.id: {column_data}")
-            # if ()
-            # break
+        for value in column_values:
+            id = value.field_id
+            field_name = value.field_name
+            field_value = value.data
 
-            # obj = BuilderDataResponse(**column_data)
-            # print(obj)
+            # Check column data type
+            if field_name is not 'id':
+                column = map_columns[field_name]
+                if column.data_type == 'int':
+                    field_value = int(field_value)
+                elif column.data_type == 'float':
+                    field_value = float(field_value)
+                elif column.data_type == 'bool':
+                    field_value = bool(field_value)
 
-            value = column_data.data if column_data is not None else None
+            # Build item object
+            if "id" not in single_item:
+                single_item["id"] = id
 
-            detail_item[column.name] = value
+            if field_name not in single_item:
+                single_item[field_name] = field_value
 
-        list_items.append(detail_item)
-
-        # Format for: view=list
-        if view == 'detail':
-            return detail_item
-        elif view == 'list':
-            items = []
-            # for i in range(1, 25):
-            #     new_item = detail_item.copy()
-            #     new_item['id'] = i
-            #     items.append(new_item)
-
-            return PaginationResponse(
-                total=len(list_items),
-                limit=10,
-                skip=0,
-                total_page=2,
-                next_page_link=None,
-                items=list_items
-            )
+        return single_item
 
     def create_resource_data(self, table_name: str, data: dict):
-        # return data
-        debug_obj = []
         latest = BuilderDataRepository(self.db).latest(table_name=table_name)
-        latest_field_id = latest.id + 1 if latest is not None else 1
-        response_obj = {}
+        latest_field_id = latest.field_id + 1 if latest is not None else 1
+        response_obj = {
+            "id": latest_field_id
+        }
         for field_name, value in data.items():
             obj = BuilderDataCreate(
                 schema_name=table_name,
@@ -91,17 +97,5 @@ class BuilderService:
                 data=value,
             )
             record = BuilderDataRepository(self.db).create(data=obj)
-            debug_obj.append(obj)
             response_obj[field_name] = value
-
         return response_obj
-        # return record
-        # return {
-        #     "title": "Full age become.",
-        #     "slug": "read-suddenly",
-        #     "image": "https://www.python.org/static/community_logos/python-powered-w-100x40.png",
-        #     "description": "Job above condition.",
-        #     "content": "Ball huge mean.",
-        #     "price": "Faked",
-        #     "course_category": 544217514
-        # }

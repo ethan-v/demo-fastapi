@@ -9,5 +9,5 @@ class BuilderFieldRepository(BaseRepository):
     def find_by_name_and_schema(self, schema_name: str, name: str):
         return self.db.query(self.table).filter(self.table.schema_name == schema_name, self.table.name == name).first()
 
-    def find_by_table(self, table_name: str):
+    def get_by_table(self, table_name: str):
         return self.db.query(self.table).filter(self.table.schema_name == table_name).all()
