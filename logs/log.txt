@@ -1,0 +1,8 @@
+[BACKGROUND JOB] Send notification after user registered success.[BACKGROUND JOB] Send notification after user registered success.[BACKGROUND JOB] Send notification after user registered success.
+[BACKGROUND JOB] Send notification after user registered success.
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user
+[BACKGROUND JOB][ethan.vu@example.com] Sent notification for subscribed user

@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, status
+
+from pyfolio.jobs.user_notification_job import notify_user_subscribed_job
 from pyfolio.repositories.subscription_repository import SubscriptionRepository
 from pyfolio.dependencies import get_db
 from pyfolio.schemas.subscription_schema import SubscriptionCreate, SubscriptionUpdate
@@ -41,6 +43,8 @@ def create_subscription(subscription: SubscriptionCreate, db: Session = Depends(
     db_subscription = SubscriptionRepository(db).find_by_email_and_type(email=subscription.email, type=subscription.type)
     if db_subscription is None:
         db_subscription = SubscriptionRepository(db).create(subscription)
+    # UserNotificationJob.subscribed(user="fake")
+    notify_user_subscribed_job(email="ethan.vu@example.com")
     return SuccessResponse(
         message='Created Subscription',
         data=db_subscription,

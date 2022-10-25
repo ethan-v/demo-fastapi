@@ -9,6 +9,7 @@ Opensource Portfolio application for python developers based on Python 3 & FastA
 - [x] CRUD Subscriptions
 - [ ] Send SMTP Mail
   - [ ] Send mail after subscribe, change password, One-time password (OTP), ..etc 
+- [ ] Queues (Background Tasks use Celery)
 - [ ] Download CV/Resume
 
 ## Quickstart
@@ -77,6 +78,22 @@ pytest
 
 # OR
 make test
+```
+
+## Queue
+
+We run job queue with celery and redis.
+
+Install Redis
+
+```shell
+docker run -d -p 6379:6379 redis
+```
+
+Run worker 
+
+```shell
+celery -A pyfolio worker -l INFO
 ```
 
 ## Reference
