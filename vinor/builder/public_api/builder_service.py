@@ -1,4 +1,5 @@
 from faker import Faker
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from vinor.builder.bdata.builder_data_models import BuilderDataCreate
@@ -49,6 +50,10 @@ class BuilderService:
     def load_resource_data_as_detail(self, table_name: str, field_id: int):
         columns = BuilderFieldRepository(self.db).get_by_table(table_name=table_name)
         column_values = BuilderDataRepository(self.db).get_by_field_id(table_name=table_name, field_id=field_id)
+
+        if len(column_values) == 0:
+            return None
+
         single_item = {}
         map_columns = {}
 
@@ -96,3 +101,21 @@ class BuilderService:
             BuilderDataRepository(self.db).create(data=obj)
             response_obj[field_name] = value
         return response_obj
+
+    def update_resource_data(self, table_name: str, field_id: int, data: dict):
+        column_values = BuilderDataRepository(self.db).get_by_field_id(table_name=table_name, field_id=field_id)
+        print(f"======= update_resource_data =====================")
+        print("column_values")
+        print(column_values)
+        try:
+            for item in column_values:
+                field_name = item.field_name
+                # print(f"In Database: {item.field_name}={item.data}")
+                # item.data = "new data"
+                # print(f"In Database: {item.field_name}={item.data}")
+                if field_name in data:
+                    item.data = data[field_name]
+                BuilderDataRepository(self.db).update(db_table=item)
+            return self.load_resource_data_as_detail(table_name=table_name, field_id=field_id)
+        except SQLAlchemyError:
+            return None
