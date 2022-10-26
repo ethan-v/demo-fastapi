@@ -29,6 +29,7 @@ htmlmin = "^0.1.12"
 typer = "^0.6.1"
 celery = "^5.2.7"
 redis = "^4.3.4"
+flower = "^1.2.0"
 
 
 [build-system]
