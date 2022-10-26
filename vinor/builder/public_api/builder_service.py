@@ -2,6 +2,7 @@ from faker import Faker
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
+from vinor.builder.base.base_response import PaginationResponse
 from vinor.builder.bdata.builder_data_models import BuilderDataCreate
 from vinor.builder.bdata.builder_data_repository import BuilderDataRepository
 from vinor.builder.field.builder_field_repository import BuilderFieldRepository
@@ -45,7 +46,15 @@ class BuilderService:
                 map_items[id] = {"id": id}
             if field_name not in map_items[id]:
                 map_items[id][field_name] = field_value
-        return list(map_items.values())
+
+        return PaginationResponse(
+            total=0,
+            limit=10,
+            skip=0,
+            total_page=0,
+            next_page_link=None,
+            items=list(map_items.values()),
+        )
 
     def load_resource_data_as_detail(self, table_name: str, field_id: int):
         columns = BuilderFieldRepository(self.db).get_by_table(table_name=table_name)
@@ -104,18 +113,15 @@ class BuilderService:
 
     def update_resource_data(self, table_name: str, field_id: int, data: dict):
         column_values = BuilderDataRepository(self.db).get_by_field_id(table_name=table_name, field_id=field_id)
-        print(f"======= update_resource_data =====================")
-        print("column_values")
-        print(column_values)
         try:
             for item in column_values:
                 field_name = item.field_name
-                # print(f"In Database: {item.field_name}={item.data}")
-                # item.data = "new data"
-                # print(f"In Database: {item.field_name}={item.data}")
                 if field_name in data:
                     item.data = data[field_name]
                 BuilderDataRepository(self.db).update(db_table=item)
             return self.load_resource_data_as_detail(table_name=table_name, field_id=field_id)
         except SQLAlchemyError:
             return None
+
+    def delete_resource_data(self, table_name: str, field_id: int):
+        return BuilderDataRepository(self.db).delete_by_field_id(table_name=table_name, field_id=field_id)

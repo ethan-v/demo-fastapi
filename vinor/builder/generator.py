@@ -35,7 +35,7 @@ example_response_json = {
 
 
 def convert_value_to_datatype(value):
-    return str(type(value))
+    return type(value).__name__
 
 
 class Generator:
