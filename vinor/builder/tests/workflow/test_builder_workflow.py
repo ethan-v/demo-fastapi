@@ -46,7 +46,7 @@ def set_workflow_data(key: str, value: dict):
 def step1_create_schema():
     payload = {
         "name": "tbl_members",
-        "active": True,
+        "is_active": True,
     }
     response = client.post("/schemas/", json=payload)
     response_data = response.json()

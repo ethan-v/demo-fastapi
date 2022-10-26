@@ -12,8 +12,20 @@ class BuilderDataRepository(BaseRepository):
             self.table.field_name == field_name
         ).first()
 
-    def get_by_table(self, table_name: str):
-        return self.db.query(self.table).filter(self.table.schema_name == table_name).all()
+    def find_by_field_id(self, table_name: str, field_id: str):
+        return self.db.query(self.table).filter(
+            self.table.schema_name == table_name,
+            self.table.field_id == field_id
+        ).first()
+
+    def get_by_table(self, table_name: str, skip: int = 0, limit: int = 10, order_by: str = ''):
+        return self.db.query(self.table)\
+            .filter(self.table.schema_name == table_name)\
+            .offset(skip).limit(limit)\
+            .all()
+
+    def count_by_table(self, table_name: str):
+        return self.db.query(self.table).filter(self.table.schema_name == table_name).count()
 
     def get_by_field_id(self, table_name: str, field_id: int):
         return self.db.query(self.table).filter(self.table.schema_name == table_name,
