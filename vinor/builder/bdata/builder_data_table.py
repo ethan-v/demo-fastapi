@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Text
 from sqlalchemy.sql import func
 
 from vinor.builder.database import BuilderDBModel
@@ -11,6 +11,6 @@ class BuilderDataTable(BuilderDBModel):
     schema_name = Column(String(255), index=True)
     field_id = Column(Integer)
     field_name = Column(String(255), index=True)
-    data = Column(String(255))
+    data = Column(Text())
     created_at = Column(DateTime(timezone=True), default=func.now())
     updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
