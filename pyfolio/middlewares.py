@@ -6,6 +6,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 allow_origins = [
     "http://127.0.0.1:4200",
     "http://localhost:4200",
+    "http://localhost:3000",
 ]
 
 trusted_hosts = [

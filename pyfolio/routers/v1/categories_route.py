@@ -9,7 +9,7 @@ from pyfolio.schemas.base_response_schema import SuccessResponse
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("")
 def read_categorys(
     skip: int = 0, limit: int = 10, order_by: str = 'id', order_direct='desc', search_by: str = '', search_value: str = '',
     db: Session = Depends(get_db)
