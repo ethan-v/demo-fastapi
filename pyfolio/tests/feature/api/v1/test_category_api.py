@@ -52,7 +52,7 @@ category_detail_structure = {
 class TestCategoryApi:
 
     def test_read_category_list(self):
-        response = client.get("/v1/categories/")
+        response = client.get("/v1/categories")
         data = response.json()
         assert response.status_code == 200
         assert schema(category_list_structure) == data
@@ -62,11 +62,11 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
         response_data = response.json()
 
         assert response.status_code == 201
@@ -79,16 +79,16 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
 
         # Create category the first times
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
 
         # Create category the second times
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
 
         assert response.status_code == 400
         assert response.json() == {"detail": "Name already exists"}
@@ -98,13 +98,13 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
 
         # Create category the first times
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
         created_obj = response.json()['data']
 
         # Update category
@@ -122,7 +122,7 @@ class TestCategoryApi:
             "description": fake.text(100),
             "is_active": True
         }
-        response = client.post("/v1/categories/", json=payload)
+        response = client.post("/v1/categories", json=payload)
         created_obj = response.json()['data']
 
         # Delete category
