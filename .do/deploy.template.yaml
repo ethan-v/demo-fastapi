@@ -1,0 +1,48 @@
+spec:
+  name: pyfolio-api
+  services:
+    - name: pyfolio-api
+      git:
+        branch: main
+        repo_clone_url: https://github.com/ethanvu-dev/pyfolio.git
+      envs:
+        - key: APP_NAME
+          value:  "Portfolio"
+        - key: APP_ENV
+          value: development
+        - key: APP_DEBUG
+          value: true
+        - key: APP_KEY
+          value: my_secret_- key
+        - key: APP_URL
+          value: http://127.0.0.1:8000
+        - key: DB_CONNECTION
+          value: sqlite
+        - key: DB_HOST
+          value: 127.0.0.1
+        - key: DB_PORT
+          value: ""
+        - key: DB_USER
+          value: ""
+        - key: DB_PASSWORD
+          value: ""
+        - key: DB_DATABASE
+          value: pyfolio
+        - key: MAIL_PROVIDER
+          value: smtp
+        - key: MAIL_HOST
+          value: smtp.mailtrap.io
+        - key: MAIL_PORT
+          value: 587
+        - key: MAIL_TLS
+          value: true
+        - key: MAIL_USERNAME
+          value: ""
+        - key: MAIL_PASSWORD
+          value: ""
+        - key: LOG_LEVEL
+          value: debug
+        - key: CACHE_DRIVER
+          value: redis
+        - key: QUEUE_DRIVER
+          value: redis

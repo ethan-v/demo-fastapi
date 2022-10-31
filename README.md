@@ -11,6 +11,12 @@ Opensource Portfolio application for python developers based on Python 3 & FastA
   - [ ] Send mail after subscribe, change password, One-time password (OTP), ..etc 
 - [ ] Download CV/Resume
 
+## Deploying the App
+
+Click this button to deploy Pyfolio API app to the DigitalOcean App Platform.
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/ethanvu-dev/pyfolio/tree/main)
+
 ## Quickstart
 
 **Pre-requisites:**
