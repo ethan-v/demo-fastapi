@@ -1,3 +1,6 @@
+export:
+	poetry export -f requirements.txt --output requirements.txt
+
 env:
 	! test -s ./.env && cp ./.env.local.sample ./.env
 
@@ -34,4 +37,10 @@ test-mailer: lint
 	pytest pyfolio/tests/unit/apps/mailer pyfolio/tests/unit/services/test_mail_service.py
 
 
+## Production
+start-prod:
+	gunicorn -k uvicorn.workers.UvicornWorker pyfolio.main:app
+
+start-prod-multiple-workers:
+	gunicorn -k uvicorn.workers.UvicornWorker pyfolio.main:app --workers 4
 
