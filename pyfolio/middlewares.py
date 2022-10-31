@@ -4,11 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from pyfolio.configs.app import appConfigs
+from pyfolio.helper import Helper
+
 allow_origins = [
     "http://127.0.0.1:4200",
     "http://localhost:4200",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    appConfigs.APP_URL,
 ]
 
 trusted_hosts = [
@@ -16,6 +20,7 @@ trusted_hosts = [
     '*.example.com',
     '127.0.0.1',
     'localhost',
+    Helper.get_hostname_from_url(appConfigs.APP_URL),
 ]
 
 
