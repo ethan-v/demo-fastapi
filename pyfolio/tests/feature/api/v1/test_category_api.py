@@ -62,7 +62,7 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
@@ -79,7 +79,7 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
@@ -98,7 +98,7 @@ class TestCategoryApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }

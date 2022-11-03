@@ -58,7 +58,7 @@ class TestPostApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
@@ -77,7 +77,7 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "content": fake.uuid4(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
@@ -94,7 +94,7 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True
@@ -113,7 +113,7 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True
@@ -135,7 +135,7 @@ class TestPostApi:
         payload = {
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True

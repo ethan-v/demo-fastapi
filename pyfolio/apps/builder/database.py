@@ -32,8 +32,9 @@ else:
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-DBModel = declarative_base()
+BuilderDBModel = declarative_base()
 
 
 def init_db():
-    DBModel.metadata.create_all(bind=engine)
+    BuilderDBModel.metadata.create_all(bind=engine)
+    print("[BUILDER] Initialized database")
