@@ -36,6 +36,8 @@ test-unit: lint
 test-mailer: lint
 	pytest pyfolio/tests/unit/apps/mailer pyfolio/tests/unit/services/test_mail_service.py
 
+test-builder: lint
+	pytest pyfolio/apps/builder/tests
 
 ## Production
 start-prod:

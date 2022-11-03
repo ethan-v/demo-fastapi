@@ -6,11 +6,11 @@ from pyfolio.apps.builder.bdata.builder_data_table import BuilderDataTable
 class BuilderDataRepository(BaseRepository):
     table = BuilderDataTable
 
-    def find_by_field_and_table(self, table_name: str, field_name: str):
-        return self.db.query(self.table).filter(
-            self.table.schema_name == table_name,
-            self.table.field_name == field_name
-        ).first()
+    # def find_by_field_and_table(self, table_name: str, field_name: str):
+    #     return self.db.query(self.table).filter(
+    #         self.table.schema_name == table_name,
+    #         self.table.field_name == field_name
+    #     ).first()
 
     def find_by_field_id(self, table_name: str, field_id: str):
         return self.db.query(self.table).filter(

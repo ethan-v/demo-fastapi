@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class BuilderDataBase(BaseModel):
     schema_name: str
     field_id: int
-    field_name: str
+    unique_fields: List[str] = []
     data: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
