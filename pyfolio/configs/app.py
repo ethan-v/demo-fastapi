@@ -17,7 +17,7 @@ class AppConfigs(BaseSettings):
     APP_DEBUG: bool = Field(True, env='APP_DEBUG')
     APP_URL: str = Field('http://localhost:8000', env='APP_URL')
 
-    STATICS_DIRECTORY: str = Field('static', env='APP_STATICS_DIRECTORY')
+    STATICS_DIRECTORY: str = 'pyfolio/static'
     STATICS_ROUTE: str = '/static'
     STATICS_PATH: str = f'{BASE_PATH}/{STATICS_DIRECTORY}'
 

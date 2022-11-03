@@ -22,8 +22,7 @@ app = FastAPI(
     },
     middleware=ROUTES_MIDDLEWARE,
 )
-app.mount('/static', StaticFiles(), name="static")
-
+app.mount(appConfigs.STATICS_ROUTE, StaticFiles(directory=appConfigs.STATICS_DIRECTORY), name="static")
 
 @app.on_event("startup")
 async def startup_event():
