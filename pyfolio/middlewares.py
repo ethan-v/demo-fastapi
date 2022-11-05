@@ -7,13 +7,14 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from pyfolio.configs.app import appConfigs
 from pyfolio.helper import Helper
 
+
 allow_origins = [
     "http://127.0.0.1:4200",
     "http://localhost:4200",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     appConfigs.APP_URL,
-]
+] + appConfigs.APP_CORS_DOMAINS
 
 trusted_hosts = [
     'example.com',
@@ -21,8 +22,9 @@ trusted_hosts = [
     '127.0.0.1',
     'localhost',
     Helper.get_hostname_from_url(appConfigs.APP_URL),
-]
+] + appConfigs.APP_CORS_DOMAINS
 
+print(trusted_hosts)
 
 # Custom middleware for react-admin js
 class ReactAdminHeaderMiddleware(BaseHTTPMiddleware):
