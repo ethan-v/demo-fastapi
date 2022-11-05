@@ -17,6 +17,7 @@ class AppConfigs(BaseSettings):
     APP_DEBUG: bool = Field(True, env='APP_DEBUG')
     APP_URL: str = Field('http://localhost:8000', env='APP_URL')
     APP_CORS_DOMAINS: str = Field(..., env='APP_CORS_DOMAINS')
+    APP_TRUSTED_HOSTS: str = Field(..., env='APP_TRUSTED_HOSTS')
 
     STATICS_DIRECTORY: str = Field('static', env='APP_STATICS_DIRECTORY')
     STATICS_ROUTE: str = '/static'
@@ -42,6 +43,8 @@ class AppConfigs(BaseSettings):
         env_file = ENV_PATH
         env_file_encoding = 'utf-8'
 
+
 appConfigs = AppConfigs()
 appConfigs.APP_CORS_DOMAINS = appConfigs.APP_CORS_DOMAINS.split(',')
+appConfigs.APP_TRUSTED_HOSTS = appConfigs.APP_TRUSTED_HOSTS.split(',')
 print(appConfigs.dict())

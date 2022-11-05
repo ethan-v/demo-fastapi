@@ -22,7 +22,7 @@ trusted_hosts = [
     '127.0.0.1',
     'localhost',
     Helper.get_hostname_from_url(appConfigs.APP_URL),
-] + appConfigs.APP_CORS_DOMAINS
+] + appConfigs.APP_TRUSTED_HOSTS
 
 print(trusted_hosts)
 

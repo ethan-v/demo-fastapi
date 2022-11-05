@@ -1,4 +1,12 @@
-export:
+#################################################
+#  Export OS environment variables
+#################################################
+
+export APP_CORS_DOMAINS=localhost:3000
+export DB_CONNECTION=sqlite
+
+
+requirements.txt:
 	poetry export -f requirements.txt --output requirements.txt
 
 env:
