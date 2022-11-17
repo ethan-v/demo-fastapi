@@ -13,7 +13,7 @@ allow_origins = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     appConfigs.APP_URL,
-]
+] + appConfigs.APP_CORS_DOMAINS
 
 trusted_hosts = [
     'example.com',
@@ -21,7 +21,7 @@ trusted_hosts = [
     '127.0.0.1',
     'localhost',
     Helper.get_hostname_from_url(appConfigs.APP_URL),
-]
+] + appConfigs.APP_TRUSTED_HOSTS
 
 
 # Custom middleware for react-admin js

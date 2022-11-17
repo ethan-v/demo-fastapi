@@ -5,8 +5,8 @@ from sqlalchemy.sql import func
 from .db import DBModel
 
 
-class Post(DBModel):
-    __tablename__ = "posts"
+class Page(DBModel):
+    __tablename__ = "pages"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(190), unique=True, index=True)
@@ -17,6 +17,3 @@ class Post(DBModel):
     is_active = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
     updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
-
-    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True,)
-    category = relationship("Category", back_populates="posts")

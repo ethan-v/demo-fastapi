@@ -8,7 +8,7 @@ class StorageService:
 
     @staticmethod
     async def put(file: UploadFile, directory: str = None):
-        directory = directory + '/' if directory is not None else ''
+        directory = directory + '/' if directory else ''
         file_name = str(uuid4())
         _, file_extension = path.splitext(file.filename)
         file_path = f'{appConfigs.STATICS_PATH}/{directory}{file_name}{file_extension}'

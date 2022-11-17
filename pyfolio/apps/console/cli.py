@@ -1,14 +1,29 @@
-"""Send greetings."""
-import sys
+import click
+from .commands import build, export, db
 
 
-def greet(name):
-    return f"Hello, {name}."
+# Top level: pyfolio --help
+@click.group(help="CLI tool to manage full development cycle of projects")
+def cli():
+    pass
 
 
-def run(args=None):
-    """Process console line arguments."""
-    if not args:
-        args = sys.argv[1:]
-    name = args[0]
-    print(greet(name))
+# Group db: pyfolio db --help
+@cli.group("db")
+def cli_db():
+    """Working with database"""
+
+
+# pyfolio build --help
+cli.add_command(build.build)
+cli.add_command(export.export)
+
+# Second level: db
+cli_db.add_command(db.import_from_file)
+
+def main():
+    cli()
+
+
+if __name__ == '__main__':
+    main()

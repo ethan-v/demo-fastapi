@@ -72,9 +72,16 @@ Open your browser this address: http://127.0.0.1:8000
 {"message":"Welcome to Pyfolio!"}
 ```
 
+#### Step 5: Import sample data
+
+```shell
+pyfolio db import --file=example/settings.json
+pyfolio db import --file=example/posts.json
+```
+
 ## Testing
 
-This project use Pytests for run the testing.
+This project use Pytest for run the testing.
 
 Run tests:
 

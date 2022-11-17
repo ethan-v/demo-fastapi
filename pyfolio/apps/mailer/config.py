@@ -17,7 +17,7 @@ class MailerConfig(BaseSettings):
     MAIL_TEMPLATES = scandir(MAIL_TEMPLATES_DIR)
     MAIL_HOST = appConfigs.MAIL_HOST
     MAIL_PORT = appConfigs.MAIL_PORT
-    MAIL_TLS = appConfigs.MAIL_TLS
+    MAIL_ENCRYPTION = appConfigs.MAIL_ENCRYPTION
     MAIL_USERNAME = appConfigs.MAIL_USERNAME
     MAIL_PASSWORD = appConfigs.MAIL_PASSWORD
 

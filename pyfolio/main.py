@@ -1,11 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from pyfolio.models.db import init_db
 from pyfolio.configs.app import appConfigs
+from pyfolio.middlewares import ROUTES_MIDDLEWARE
 from pyfolio.routers.v1.router_v1 import router_v1
 from pyfolio.routers.v2.router_v2 import router_v2
-from pyfolio.middlewares import ROUTES_MIDDLEWARE
-
 
 app = FastAPI(
     title="Pyfolio API",
@@ -22,7 +23,9 @@ app = FastAPI(
     },
     middleware=ROUTES_MIDDLEWARE,
 )
-app.mount('/static', StaticFiles(), name="static")
+app.mount(appConfigs.STATICS_ROUTE, StaticFiles(directory=appConfigs.STATICS_DIRECTORY), name="static")
+
+templates = Jinja2Templates(directory=f"{appConfigs.STATICS_DIRECTORY}/templates")
 
 
 @app.on_event("startup")
@@ -34,6 +37,11 @@ async def startup_event():
 def shutdown_event():
     with open("app.log", mode="a") as log:
         log.write("Application shutdown")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_item(request: Request):
+    return templates.TemplateResponse("item.html", {"request": request})
 
 
 # Register APIs

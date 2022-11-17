@@ -1,9 +1,10 @@
 from os import path
+import os
 from pytest_schema import schema, Or
 from faker import Faker
 from fastapi.testclient import TestClient
 from pyfolio.configs.app import appConfigs
-from pyfolio.tests.helper import exclude_middleware, clean_uploaded_image
+from pyfolio.tests.helper import exclude_middleware, clean_uploaded_image, get_mimetype
 from pyfolio.main import app
 
 client = TestClient(exclude_middleware(app, 'TrustedHostMiddleware'))
@@ -60,8 +61,11 @@ class TestFileApi:
 
     def test_upload_file(self):
         payload = {}
+        file_path = f'{appConfigs.APP_PATH}/logo.png'
+        file_name = os.path.basename(file_path) # example.png
+        file_mime = get_mimetype(file_path) # image/ong
         files = [
-            ('file', ('walpaper-1.jpg', open('/home/super/Pictures/Wallpapers/walpaper-1.jpg', 'rb'), 'image/jpeg'))
+            ('file', (file_name, open(file_path, 'rb'), file_mime))
         ]
         response = client.post("/v1/files/upload/", json=payload, files=files)
         response_data = response.json()

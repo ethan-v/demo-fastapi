@@ -1,4 +1,12 @@
-export:
+#################################################
+#  Export OS environment variables
+#################################################
+
+export APP_CORS_DOMAINS=localhost:3000
+export DB_CONNECTION=mysql
+
+
+requirements.txt:
 	poetry export -f requirements.txt --output requirements.txt
 
 env:
@@ -36,6 +44,12 @@ test-unit: lint
 test-mailer: lint
 	pytest pyfolio/tests/unit/apps/mailer pyfolio/tests/unit/services/test_mail_service.py
 
+## Import data
+import-db:
+	pyfolio db import --file=example/settings.json
+	pyfolio db import --file=example/categories.json
+	pyfolio db import --file=example/posts.json
+	pyfolio db import --file=example/pages.json
 
 ## Production
 start-prod:

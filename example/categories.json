@@ -1,0 +1,29 @@
+[
+  {
+    "id": 999,
+    "title": "Uncategorized",
+    "slug": "uncategorized",
+    "icon": null,
+    "image": null,
+    "description": "The posts aren't arrange yet.",
+    "is_active": 0
+  },
+  {
+    "id": 1,
+    "title": "Python Core",
+    "slug": "pyth-n-core",
+    "icon": null,
+    "image": null,
+    "description": "Python core tutorial",
+    "is_active": 1
+  },
+  {
+    "id": 2,
+    "title": "MySQL",
+    "slug": "mastering-mysql",
+    "icon": null,
+    "image": null,
+    "description": "Mastering MySQL.",
+    "is_active": 1
+  }
+]

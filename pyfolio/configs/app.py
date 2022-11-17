@@ -16,12 +16,14 @@ class AppConfigs(BaseSettings):
     APP_KEY: str = Field('', env='APP_KEY')
     APP_DEBUG: bool = Field(True, env='APP_DEBUG')
     APP_URL: str = Field('http://localhost:8000', env='APP_URL')
+    APP_CORS_DOMAINS: str = Field(..., env='APP_CORS_DOMAINS')
+    APP_TRUSTED_HOSTS: str = Field(..., env='APP_TRUSTED_HOSTS')
 
-    STATICS_DIRECTORY: str = Field('static', env='APP_STATICS_DIRECTORY')
+    STATICS_DIRECTORY: str = 'pyfolio/static'
     STATICS_ROUTE: str = '/static'
     STATICS_PATH: str = f'{BASE_PATH}/{STATICS_DIRECTORY}'
 
-    DB_CONNECTION: str = Field('sqlite', env='DB_CONNECTION')
+    DB_CONNECTION: str = Field(..., env='DB_CONNECTION')
     DB_HOST: str = Field('127.0.0.1', env='DB_HOST')
     DB_PORT: str = Field('', env='DB_PORT')
     DB_USER: str = Field('', env='DB_USER')
@@ -32,7 +34,7 @@ class AppConfigs(BaseSettings):
     MAIL_PROVIDER: str = Field('', env='MAIL_PROVIDER')
     MAIL_HOST: str = Field('', env='MAIL_HOST')
     MAIL_PORT: str = Field('', env='MAIL_PORT')
-    MAIL_TLS: str = Field(True, env='MAIL_TLS')
+    MAIL_ENCRYPTION: str = Field(True, env='MAIL_ENCRYPTION')
     MAIL_USERNAME: str = Field('', env='MAIL_USERNAME')
     MAIL_PASSWORD: str = Field('', env='MAIL_PASSWORD')
 
@@ -43,4 +45,6 @@ class AppConfigs(BaseSettings):
 
 
 appConfigs = AppConfigs()
+appConfigs.APP_CORS_DOMAINS = appConfigs.APP_CORS_DOMAINS.split(',')
+appConfigs.APP_TRUSTED_HOSTS = appConfigs.APP_TRUSTED_HOSTS.split(',')
 print(appConfigs.dict())

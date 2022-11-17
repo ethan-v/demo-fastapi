@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-pyfolio = 'pyfolio.apps.console.cli:run'
+pyfolio = 'pyfolio.apps.console.cli:main'
 
 
 [tool.poetry.dependencies]

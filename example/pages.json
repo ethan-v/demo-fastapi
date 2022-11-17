@@ -1,0 +1,12 @@
+[
+	{
+		"title" : "About me",
+		"slug" : "about-me",
+		"image" : "/assets/blog/dynamic-routing/cover.jpg",
+		"excerpt": "Text",
+		"content" : "Data plays a key role in building machine learning and the AI model. In today’s world where data is being generated at an astronomical rate by every computing device and sensors, it is important to handle huge volumes of data correctly. One of the most common ways of storing data is in the form of Comma-Separated Values(CSV). Directly importing a large amount of data leads to out-of-memory error and reading the entire file at once leads to system crashes due to insufficient RAM.",
+		"is_active" : 1,
+		"created_at" : "2022-11-12 13:24:37",
+		"updated_at" : "2022-11-12 13:24:37"
+	}
+]

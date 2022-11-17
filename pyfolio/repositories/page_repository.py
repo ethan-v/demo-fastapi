@@ -1,10 +1,10 @@
 from pyfolio.repositories.base_repository import BaseRepository
-from pyfolio.models.post import Post
+from pyfolio.models.page import Page
 
 
-class PostRepository(BaseRepository):
+class PageRepository(BaseRepository):
 
-    model = Post
+    model = Page
 
     def find_by_title(self, title: str):
         return self.db.query(self.model).filter(self.model.title == title).first()

@@ -1,3 +1,5 @@
+from typing import Union
+
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from pyfolio.dependencies import get_db
@@ -26,9 +28,12 @@ def read_posts(skip: int = 0, limit: int = 10, sort: str = 'id', order='desc',
     )
 
 
-@router.get("/{id}")
-def read_post(id: int, db: Session = Depends(get_db)):
-    post = PostRepository(db).find(id)
+@router.get("/{idOrSlug}")
+def read_post(idOrSlug: Union[int, str], db: Session = Depends(get_db)):
+    if isinstance(idOrSlug, str):
+        post = PostRepository(db).find_by_slug(slug=idOrSlug)
+    else:
+        post = PostRepository(db).find(id=idOrSlug)
     if post is None:
         raise HTTPException(status_code=404, detail="Post not found")
     return SuccessResponse(
