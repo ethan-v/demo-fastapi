@@ -34,7 +34,7 @@ spec:
           value: smtp.mailtrap.io
         - key: MAIL_PORT
           value: 587
-        - key: MAIL_TLS
+        - key: MAIL_ENCRYPTION
           value: true
         - key: MAIL_USERNAME
           value: ""

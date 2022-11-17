@@ -1,0 +1,46 @@
+[
+	{
+		"title" : "Python for Backend Engineer 1",
+		"slug" : "python-for-backend-engineer",
+		"image" : "/assets/blog/dynamic-routing/cover.jpg",
+		"excerpt": "Text",
+		"content" : "Data plays a key role in building machine learning and the AI model. In today’s world where data is being generated at an astronomical rate by every computing device and sensors, it is important to handle huge volumes of data correctly. One of the most common ways of storing data is in the form of Comma-Separated Values(CSV). Directly importing a large amount of data leads to out-of-memory error and reading the entire file at once leads to system crashes due to insufficient RAM.",
+		"is_active" : 1,
+		"created_at" : "2022-11-12 13:24:37",
+		"updated_at" : "2022-11-12 13:24:37",
+		"category_id" : null
+	},
+	{
+		"title" : "Reading and Writing CSV Files in Python",
+		"slug" : "python-csv",
+		"image" : "/assets/blog/dynamic-routing/cover.jpg",
+		"excerpt": "Text",
+		"content" : "Data plays a key role in building machine learning and the AI model. In today’s world where data is being generated at an astronomical rate by every computing device and sensors, it is important to handle huge volumes of data correctly. One of the most common ways of storing data is in the form of Comma-Separated Values(CSV). Directly importing a large amount of data leads to out-of-memory error and reading the entire file at once leads to system crashes due to insufficient RAM.",
+		"is_active" : 1,
+		"created_at" : "2022-11-12 13:24:37",
+		"updated_at" : "2022-11-12 13:24:37",
+		"category_id" : null
+	},
+	{
+		"title" : "Python import large csv file",
+		"slug" : "python-import-large-csv-file",
+		"image" : "/assets/blog/dynamic-routing/cover.jpg",
+		"excerpt": "Text",
+		"content" : "Data plays a key role in building machine learning and the AI model. In today’s world where data is being generated at an astronomical rate by every computing device and sensors, it is important to handle huge volumes of data correctly. One of the most common ways of storing data is in the form of Comma-Separated Values(CSV). Directly importing a large amount of data leads to out-of-memory error and reading the entire file at once leads to system crashes due to insufficient RAM.",
+		"is_active" : 1,
+		"created_at" : "2022-11-12 13:24:37",
+		"updated_at" : "2022-11-12 13:24:37",
+		"category_id" : null
+	},
+	{
+		"title" : "Building open source projects - Lessons learned (2021)",
+		"slug" : "building-open-source-projects-lessons-i-learned-2021",
+		"image" : null,
+		"excerpt": "Text",
+		"content" : "Data plays a key role in building machine learning and the AI model. In today’s world where data is being generated at an astronomical rate by every computing device and sensors, it is important to handle huge volumes of data correctly. One of the most common ways of storing data is in the form of Comma-Separated Values(CSV). Directly importing a large amount of data leads to out-of-memory error and reading the entire file at once leads to system crashes due to insufficient RAM.",
+		"is_active" : null,
+		"created_at" : "2022-11-12 13:24:37",
+		"updated_at" : "2022-11-12 13:24:37",
+		"category_id" : null
+	}
+]

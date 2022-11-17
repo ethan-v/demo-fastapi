@@ -12,13 +12,17 @@ router = APIRouter()
 @router.get("")
 def read_settings(
     skip: int = 0, limit: int = 10, sort: str = 'id', order='desc', search_by: str = '', search_value: str = '',
+    formatted: bool = False,
     db: Session = Depends(get_db)
 ):
-    settings = SettingRepository(db).paginate(
-        skip=skip, limit=limit,
-        sort=sort, order=order,
-        search_by=search_by, search_value=search_value
-    )
+    if not formatted:
+        settings = SettingRepository(db).paginate(
+            skip=skip, limit=limit,
+            sort=sort, order=order,
+            search_by=search_by, search_value=search_value
+        )
+    else:
+        settings = SettingRepository(db).get_formatted()
     return SuccessResponse(
         message='Retrieve settings successfully',
         data=settings

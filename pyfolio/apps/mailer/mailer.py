@@ -27,7 +27,7 @@ class Mailer:
             message["From"] = sender
             message["To"] = receiver
             with smtplib.SMTP(mailerConfigs.MAIL_HOST, 2525) as server:
-                if mailerConfigs.MAIL_TLS:
+                if mailerConfigs.MAIL_ENCRYPTION:
                     server.starttls()
                 server.login(mailerConfigs.MAIL_USERNAME, mailerConfigs.MAIL_PASSWORD)
                 server.sendmail(sender, receiver, message.as_string())
@@ -50,7 +50,7 @@ class Mailer:
             message["From"] = sender
             message["To"] = receiver
             with smtplib.SMTP(mailerConfigs.MAIL_HOST, int(mailerConfigs.MAIL_PORT)) as server:
-                if mailerConfigs.MAIL_TLS:
+                if mailerConfigs.MAIL_ENCRYPTION:
                     server.starttls()
                 server.login(mailerConfigs.MAIL_USERNAME, mailerConfigs.MAIL_PASSWORD)
                 server.sendmail(sender, receiver, message.as_string())

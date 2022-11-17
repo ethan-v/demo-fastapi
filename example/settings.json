@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Github",
+        "key": "github_url",
+        "value": "https://github.com/ethanvu-dev"
+    },
+    {
+        "name": "Youtube",
+        "key": "youtube_url",
+        "value": "https://www.youtube.com/@BackendEngineer"
+    },
+    {
+        "name": "Pyfolio",
+        "key": "project_1",
+        "value": "https://github.com/ethanvu-dev/pyfolio"
+    }
+]

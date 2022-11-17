@@ -1,3 +1,4 @@
+import mimetypes
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from pyfolio.services.image_service import ImageService
@@ -42,3 +43,7 @@ def read_env_file(file_path: str, debug: bool = False) -> dict:
                 print("Line{}: {}".format(count, line_cleaned))
                 print("Variable name: {}, value: {}".format(name, value))
     return env_dict
+
+
+def get_mimetype(file_path: str):
+    return mimetypes.MimeTypes().guess_type(file_path)[0]

@@ -9,7 +9,7 @@ class TestMailerConfig:
         assert hasattr(mailerConfigs, 'MAIL_PROVIDER')
         assert hasattr(mailerConfigs, 'MAIL_HOST')
         assert hasattr(mailerConfigs, 'MAIL_PORT')
-        assert hasattr(mailerConfigs, 'MAIL_TLS')
+        assert hasattr(mailerConfigs, 'MAIL_ENCRYPTION')
         assert hasattr(mailerConfigs, 'MAIL_USERNAME')
         assert hasattr(mailerConfigs, 'MAIL_PASSWORD')
         assert hasattr(mailerConfigs, 'MAIL_TEMPLATES_DIR')
@@ -26,6 +26,6 @@ class TestMailerConfig:
         assert mailer_config_data['MAIL_PROVIDER'] == end_file_data['MAIL_PROVIDER']
         assert mailer_config_data['MAIL_HOST'] == end_file_data['MAIL_HOST']
         assert mailer_config_data['MAIL_PORT'] == end_file_data['MAIL_PORT']
-        assert mailer_config_data['MAIL_TLS'] == end_file_data['MAIL_TLS']
+        assert mailer_config_data['MAIL_ENCRYPTION'] == end_file_data['MAIL_ENCRYPTION']
         assert mailer_config_data['MAIL_USERNAME'] == end_file_data['MAIL_USERNAME']
         assert mailer_config_data['MAIL_PASSWORD'] == end_file_data['MAIL_PASSWORD']
