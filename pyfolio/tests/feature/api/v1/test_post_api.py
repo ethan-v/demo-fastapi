@@ -77,11 +77,11 @@ class TestPostApi:
 
     def test_create_post_without_duplicate(self):
         payload = {
-            "title": fake.text(15),
+            "title": fake.text(50),
             "slug": fake.uuid4(),
-            "image": fake.image_url(),
-            "excerpt": fake.text(20),
-            "content": fake.text(),
+            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
+            "excerpt": fake.text(50),
+            "content": fake.text(500),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -97,11 +97,11 @@ class TestPostApi:
 
     def test_create_post_with_duplicated(self):
         payload = {
-            "title": fake.text(20),
+            "title": fake.text(50),
             "slug": fake.uuid4(),
-            "image": fake.image_url(),
-            "excerpt": fake.text(20),
-            "content": fake.text(),
+            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
+            "excerpt": fake.text(50),
+            "content": fake.text(500),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -117,11 +117,11 @@ class TestPostApi:
 
     def test_update_post(self):
         payload = {
-            "title": fake.text(20),
+            "title": fake.text(50),
             "slug": fake.uuid4(),
-            "image": fake.image_url(),
-            "excerpt": fake.text(20),
-            "content": fake.text(),
+            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
+            "excerpt": fake.text(50),
+            "content": fake.text(500),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -140,11 +140,11 @@ class TestPostApi:
 
     def test_delete_post(self):
         payload = {
-            "title": fake.text(20),
+            "title": fake.text(50),
             "slug": fake.uuid4(),
-            "image": fake.image_url(),
-            "excerpt": fake.text(20),
-            "content": fake.text(),
+            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
+            "excerpt": fake.text(50),
+            "content": fake.text(500),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
