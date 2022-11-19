@@ -44,9 +44,9 @@ def read_post(idOrSlug: Union[int, str], db: Session = Depends(get_db)):
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
-    db_post = PostRepository(db).find_by_title(post.title)
+    db_post = PostRepository(db).find_by_slug(post.slug)
     if db_post:
-        raise HTTPException(status_code=400, detail="Title already exists")
+        raise HTTPException(status_code=400, detail="Slug already exists")
     post = PostRepository(db).create(post)
     if post is None:
         raise HTTPException(status_code=500, detail="Failed to create post")

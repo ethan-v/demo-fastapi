@@ -9,7 +9,7 @@ class Post(DBModel):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(190), unique=True, index=True)
+    title = Column(String(190), index=True)
     slug = Column(String(190), unique=True, index=True)
     image = Column(String(190), default=None)
     excerpt = Column(String(500), default=None)

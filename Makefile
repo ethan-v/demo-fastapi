@@ -2,7 +2,6 @@
 #  Export OS environment variables
 #################################################
 
-export APP_CORS_DOMAINS=localhost:3000
 export DB_CONNECTION=mysql
 
 

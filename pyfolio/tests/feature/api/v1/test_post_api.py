@@ -22,6 +22,7 @@ post_list_structure = {
                 "title": str,
                 "slug": Or(None, str),
                 "image": Or(None, str),
+                "excerpt": Or(None, str),
                 "content": Or(None, str),
                 "category_id": int,
                 "is_active": bool,
@@ -39,6 +40,7 @@ post_detail_structure = {
         "title": str,
         "slug": Or(None, str),
         "image": Or(None, str),
+        "excerpt": Or(None, str),
         "content": Or(None, str),
         "category_id": int,
         "is_active": bool,
@@ -75,15 +77,18 @@ class TestPostApi:
 
     def test_create_post_without_duplicate(self):
         payload = {
-            "title": fake.uuid4(),
+            "title": fake.text(15),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
-            "content": fake.uuid4(),
+            "image": fake.image_url(),
+            "excerpt": fake.text(20),
+            "content": fake.text(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
         response = client.post("/v1/posts", json=payload)
         response_data = response.json()
+
+        print(response_data)
 
         assert response.status_code == 201
         assert response_data['data']['is_active'] == payload['is_active']
@@ -92,10 +97,11 @@ class TestPostApi:
 
     def test_create_post_with_duplicated(self):
         payload = {
-            "title": fake.uuid4(),
+            "title": fake.text(20),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
-            "content": fake.text(100),
+            "image": fake.image_url(),
+            "excerpt": fake.text(20),
+            "content": fake.text(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -107,14 +113,15 @@ class TestPostApi:
         response = client.post("/v1/posts", json=payload)
 
         assert response.status_code == 400
-        assert response.json() == {"detail": "Title already exists"}
+        assert response.json() == {"detail": "Slug already exists"}
 
     def test_update_post(self):
         payload = {
-            "title": fake.uuid4(),
+            "title": fake.text(20),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
-            "content": fake.text(100),
+            "image": fake.image_url(),
+            "excerpt": fake.text(20),
+            "content": fake.text(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -133,10 +140,11 @@ class TestPostApi:
 
     def test_delete_post(self):
         payload = {
-            "title": fake.uuid4(),
+            "title": fake.text(20),
             "slug": fake.uuid4(),
-            "image": fake.text(100),
-            "content": fake.text(100),
+            "image": fake.image_url(),
+            "excerpt": fake.text(20),
+            "content": fake.text(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
