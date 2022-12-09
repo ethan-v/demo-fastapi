@@ -2,6 +2,8 @@
 
 Opensource Portfolio application for python developers based on Python 3 & FastAPI framework.
 
+![Admin Dashboard](screenshot.png)
+
 **Features**
 
 - [x] CRUD Categories

@@ -8,7 +8,12 @@ templates = Jinja2Templates(directory=f"{appConfigs.ADMIN_TEMPLATE_PATH}/theme/d
 router = APIRouter()
 
 
-@router.get("/", response_class=HTMLResponse)
+@router.get("/posts", response_class=HTMLResponse)
 async def read_item(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    data = {
+        "request": request,
+        'app_name': appConfigs.APP_NAME,
+        'page_title': 'Posts',
+    }
+    return templates.TemplateResponse("pages/post/index.html", data)
 

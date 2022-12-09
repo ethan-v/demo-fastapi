@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from pyfolio.routers.admin import root_route
+from pyfolio.routers.admin import dashboard, post
 
 router_admin = APIRouter(prefix="/admin")
-router_admin.include_router(root_route.router, tags=["Admin - Root"])
-# router_admin.include_router(items_route.router, prefix="/items", tags=["V2 - Item"])
+router_admin.include_router(dashboard.router, tags=["Admin - Dashboard"])
+router_admin.include_router(post.router, tags=["Admin - Post"])

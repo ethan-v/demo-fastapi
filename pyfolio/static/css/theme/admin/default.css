@@ -1,0 +1,79 @@
+/* Theme Reset  */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 14px;
+}
+
+/* Colors */
+.bg-brand {
+    background-color: #103f85 !important;;
+}
+.text-brand {
+    color: #103f85 !important;;
+}
+
+
+/* Header */
+.site-header {
+    height: 48px;
+}
+.site-header .navbar-brand {
+    font-weight: 600;
+    margin-top: 12px;
+}
+.site-header-controls li {
+    margin: 0 5px;
+}
+.site-header-controls li a.nav-link:hover {
+    opacity: 0.6;
+}
+.site-header-controls li a.nav-link-icon{
+    border-radius: 50px !important;
+    width: 32px;
+    height: 32px;
+    line-height: 16px;
+    text-align: center;
+    margin-top: 3px;
+}
+.site-header-controls li a.nav-link-icon:hover{
+    background: #30538b !important;
+}
+
+/* Sidebar */
+.site-sidebar {
+    background-color: #103f85 !important;
+    max-width: 220px;
+    position: absolute;
+    bottom: 0;
+    top: 48px;
+    overflow-y: auto;
+}
+.site-sidebar .nav-item {
+    margin: 3px 0;
+}
+.site-sidebar .nav-link {
+    line-height: 18px;
+}
+.site-sidebar a {
+    color: whitesmoke;
+}
+.site-sidebar a:hover,
+.site-sidebar a.active {
+    color: whitesmoke;
+    background-color: #30538b;
+    border-radius: 50px;
+}
+.site-sidebar .sidebar-heading{
+    font-size: 12px;
+    border-bottom: 1px solid #30538b;
+}
+
+/* Page */
+/* Page Heading */
+.site-page-heading {
+    font-size: 18px;
+}
