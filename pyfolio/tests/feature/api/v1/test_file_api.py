@@ -61,7 +61,7 @@ class TestFileApi:
 
     def test_upload_file(self):
         payload = {}
-        file_path = f'{appConfigs.APP_PATH}/logo.png'
+        file_path = f'{appConfigs.PROJECT_PATH}/logo.png'
         file_name = os.path.basename(file_path) # example.png
         file_mime = get_mimetype(file_path) # image/ong
         files = [
@@ -81,7 +81,7 @@ class TestFileApi:
 
     def test_read_file_detail(self):
         # First, upload a file
-        demo_file_path = appConfigs.APP_PATH + '/logo.png'
+        demo_file_path = appConfigs.PROJECT_PATH + '/logo.png'
         demo_file_name = path.basename(demo_file_path)
         payload = {}
         files = [
@@ -98,7 +98,7 @@ class TestFileApi:
 
     def test_delete_file(self):
         # First, upload a file
-        demo_file_path = appConfigs.APP_PATH + '/logo.png'
+        demo_file_path = appConfigs.PROJECT_PATH + '/logo.png'
         demo_file_name = path.basename(demo_file_path)
         payload = {}
         files = [

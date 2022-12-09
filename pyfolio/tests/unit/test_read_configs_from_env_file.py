@@ -1,11 +1,11 @@
-from pyfolio.configs.app import APP_PATH, AppConfigs
+from pyfolio.configs.app import PROJECT_PATH, AppConfigs
 from pyfolio.tests.helper import read_env_file
 
 
 class TestAppConfigFile:
 
     def test_read_env_file(self):
-        end_file_path = APP_PATH + '/.env'
+        end_file_path = PROJECT_PATH + '/.env'
         end_file_data = read_env_file(end_file_path)
 
         appConfigs = AppConfigs()
@@ -16,7 +16,7 @@ class TestAppConfigFile:
                 assert value == end_file_data[key]
 
     def test_read_env_local_sample_file(self):
-        end_file_path = APP_PATH + '/.env.local.sample'
+        end_file_path = PROJECT_PATH + '/.env.local.sample'
         end_file_data = read_env_file(end_file_path)
 
         AppConfigs.Config.env_file = end_file_path
@@ -30,7 +30,7 @@ class TestAppConfigFile:
                 assert value == end_file_data[key]
 
     def test_read_env_prod_sample_file(self):
-        end_file_path = APP_PATH + '/.env.prod.sample'
+        end_file_path = PROJECT_PATH + '/.env.prod.sample'
         end_file_data = read_env_file(end_file_path)
 
         AppConfigs.Config.env_file = end_file_path

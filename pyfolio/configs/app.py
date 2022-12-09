@@ -2,15 +2,17 @@ import os
 from pathlib import Path    # Python 3.6+ only
 from pydantic import BaseSettings, Field
 
-BASE_PATH: str = os.getcwd()
+PROJECT_PATH: str = os.getcwd()
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-APP_PATH = "{0}".format(Path(CURRENT_DIR).parent.parent)
-ENV_PATH = "{0}/.env".format(APP_PATH)
+PROJECT_PATH = "{0}".format(Path(CURRENT_DIR).parent.parent)
+ENV_PATH = "{0}/.env".format(PROJECT_PATH)
+PROJECT_DIR = 'pyfolio'
 
 
 class AppConfigs(BaseSettings):
 
-    APP_PATH: str = BASE_PATH
+    PROJECT_PATH: str = PROJECT_PATH
+    APP_PATH: str = f'{PROJECT_PATH}/{PROJECT_DIR}'
     APP_NAME: str = Field('Portfolio', env='APP_NAME')
     APP_ENV: str = Field('', env='APP_ENV')
     APP_KEY: str = Field('', env='APP_KEY')
@@ -19,9 +21,12 @@ class AppConfigs(BaseSettings):
     APP_CORS_DOMAINS: str = Field(..., env='APP_CORS_DOMAINS')
     APP_TRUSTED_HOSTS: str = Field(..., env='APP_TRUSTED_HOSTS')
 
-    STATICS_DIRECTORY: str = 'pyfolio/static'
+    STATICS_DIRECTORY: str = f'{PROJECT_DIR}/static'
     STATICS_ROUTE: str = '/static'
-    STATICS_PATH: str = f'{BASE_PATH}/{STATICS_DIRECTORY}'
+    STATICS_PATH: str = f'{PROJECT_PATH}/{STATICS_DIRECTORY}'
+
+    ADMIN_TEMPLATE_PATH: str = f'{APP_PATH}/templates/admin'
+    FRONT_TEMPLATE_PATH: str = f'{APP_PATH}/templates/front'
 
     DB_CONNECTION: str = Field(..., env='DB_CONNECTION')
     DB_HOST: str = Field('127.0.0.1', env='DB_HOST')

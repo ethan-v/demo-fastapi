@@ -7,6 +7,7 @@ from pyfolio.configs.app import appConfigs
 from pyfolio.middlewares import ROUTES_MIDDLEWARE
 from pyfolio.routers.v1.router_v1 import router_v1
 from pyfolio.routers.v2.router_v2 import router_v2
+from pyfolio.routers.admin.router_admin import router_admin
 
 app = FastAPI(
     title="Pyfolio API",
@@ -25,7 +26,7 @@ app = FastAPI(
 )
 app.mount(appConfigs.STATICS_ROUTE, StaticFiles(directory=appConfigs.STATICS_DIRECTORY), name="static")
 
-templates = Jinja2Templates(directory=f"{appConfigs.STATICS_DIRECTORY}/templates")
+templates = Jinja2Templates(directory=f"{appConfigs.FRONT_TEMPLATE_PATH}")
 
 
 @app.on_event("startup")
@@ -45,5 +46,6 @@ async def read_item(request: Request):
 
 
 # Register APIs
+app.include_router(router_admin)
 app.include_router(router_v1)
 app.include_router(router_v2)

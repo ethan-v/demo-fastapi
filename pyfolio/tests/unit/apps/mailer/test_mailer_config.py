@@ -1,5 +1,5 @@
 from pyfolio.apps.mailer.config import mailerConfigs
-from pyfolio.configs.app import APP_PATH
+from pyfolio.configs.app import PROJECT_PATH
 from pyfolio.tests.helper import read_env_file
 
 
@@ -16,7 +16,7 @@ class TestMailerConfig:
         assert hasattr(mailerConfigs, 'MAIL_TEMPLATES')
 
     def test_read_mailer_config_from_env_file(self):
-        end_file_path = APP_PATH + '/.env'
+        end_file_path = PROJECT_PATH + '/.env'
         end_file_data = read_env_file(end_file_path)
         mailer_config_data = mailerConfigs.dict()
 
