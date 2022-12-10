@@ -46,7 +46,7 @@ body {
 /* Sidebar */
 .site-sidebar {
     background-color: #103f85 !important;
-    max-width: 220px;
+    /* max-width: 220px; */
     position: absolute;
     bottom: 0;
     top: 48px;
@@ -70,6 +70,13 @@ body {
 .site-sidebar .sidebar-heading{
     font-size: 12px;
     border-bottom: 1px solid #30538b;
+}
+
+/* Main Content */
+.site-main {
+    /* width: calc(100% - 220px); */
+    /* position: absolute;
+    right: 0; */
 }
 
 /* Page */

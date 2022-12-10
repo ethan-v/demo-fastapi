@@ -24,20 +24,15 @@
     <div class="container-fluid">
         <div class="row">
             {% include "layout/sidebar.html" %}
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h3 class="site-page-heading">
-                        {% if page_title is defined %} 
-                            {{page_title}} 
-                        {% else %} 
-                            [page_title is not set] 
-                        {% endif %}
-                    </h3>
+            <main class="site-main">
+                <div class=" col-md-9 ms-sm-auto col-lg-10 px-md-3">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h3 class="site-page-heading">{% if page_title is defined %} {{page_title}} {% else %} {% endif %}</h3>
+                    </div>
+                    {% block content %}
+                    <!-- Layout \ default -->
+                    {% endblock content %}
                 </div>
-                {% block content %}
-                <!-- Layout \ default -->
-                {% endblock content %}
             </main>
         </div>
     </div>

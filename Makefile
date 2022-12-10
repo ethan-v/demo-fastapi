@@ -2,7 +2,7 @@
 #  Export OS environment variables
 #################################################
 
-export DB_CONNECTION=mysql
+# export DB_CONNECTION=mysql
 
 
 requirements.txt:

@@ -1,0 +1,24 @@
+
+#####################################################################
+###### DEPLOY FastAPI with Sytemd Service, Gunicorn & Nginx #########
+#####################################################################
+# Start & enable the service.
+# $ sudo systemctl start fastapi_demo
+# $ sudo systemctl enable fastapi_demo
+
+# To verify if everything works run the following command.
+# $ sudo systemctl status fastapi_demo
+#####################################################################
+
+[Unit]
+Description=Gunicorn Daemon for FastAPI Demo Application
+After=network.target
+
+[Service]
+User=demo
+Group=www-data
+WorkingDirectory=/home/demo/fastapi_demo
+ExecStart=/home/demo/fastapi_demo/venv/bin/gunicorn -c gunicorn_conf.py app:app
+
+[Install]
+WantedBy=multi-user.target
