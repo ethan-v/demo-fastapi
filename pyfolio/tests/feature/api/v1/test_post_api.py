@@ -22,7 +22,6 @@ post_list_structure = {
                 "title": str,
                 "slug": Or(None, str),
                 "image": Or(None, str),
-                "excerpt": Or(None, str),
                 "content": Or(None, str),
                 "category_id": int,
                 "is_active": bool,
@@ -40,7 +39,6 @@ post_detail_structure = {
         "title": str,
         "slug": Or(None, str),
         "image": Or(None, str),
-        "excerpt": Or(None, str),
         "content": Or(None, str),
         "category_id": int,
         "is_active": bool,
@@ -60,7 +58,7 @@ class TestPostApi:
             "title": fake.uuid4(),
             "slug": fake.uuid4(),
             "icon": fake.text(100),
-            "image": fake.text(100),
+            "image": fake.image_url(),
             "description": fake.text(100),
             "is_active": True
         }
@@ -77,18 +75,15 @@ class TestPostApi:
 
     def test_create_post_without_duplicate(self):
         payload = {
-            "title": fake.text(50),
+            "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
-            "excerpt": fake.text(50),
-            "content": fake.text(500),
+            "image": fake.image_url(),
+            "content": fake.uuid4(),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
         response = client.post("/v1/posts", json=payload)
         response_data = response.json()
-
-        print(response_data)
 
         assert response.status_code == 201
         assert response_data['data']['is_active'] == payload['is_active']
@@ -97,11 +92,10 @@ class TestPostApi:
 
     def test_create_post_with_duplicated(self):
         payload = {
-            "title": fake.text(50),
+            "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
-            "excerpt": fake.text(50),
-            "content": fake.text(500),
+            "image": fake.image_url(),
+            "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -113,15 +107,14 @@ class TestPostApi:
         response = client.post("/v1/posts", json=payload)
 
         assert response.status_code == 400
-        assert response.json() == {"detail": "Slug already exists"}
+        assert response.json() == {"detail": "Title already exists"}
 
     def test_update_post(self):
         payload = {
-            "title": fake.text(50),
+            "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
-            "excerpt": fake.text(50),
-            "content": fake.text(500),
+            "image": fake.image_url(),
+            "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
@@ -140,11 +133,10 @@ class TestPostApi:
 
     def test_delete_post(self):
         payload = {
-            "title": fake.text(50),
+            "title": fake.uuid4(),
             "slug": fake.uuid4(),
-            "image": fake.image_url(placeholder_url=f'https://picsum.photos/600/400'),
-            "excerpt": fake.text(50),
-            "content": fake.text(500),
+            "image": fake.image_url(),
+            "content": fake.text(100),
             "category_id": self.CATEGORY_ID,
             "is_active": True
         }
