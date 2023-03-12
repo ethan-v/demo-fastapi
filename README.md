@@ -78,7 +78,9 @@ Open your browser this address: http://127.0.0.1:8000
 
 ```shell
 pyfolio db import --file=example/settings.json
+pyfolio db import --file=example/categories.json
 pyfolio db import --file=example/posts.json
+pyfolio db import --file=example/pages.json
 ```
 
 ## Testing
